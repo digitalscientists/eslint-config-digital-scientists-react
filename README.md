@@ -2,7 +2,25 @@
 
 An ESLint [Shareable Config](http://eslint.org/docs/developer-guide/shareable-configs) for React.js projects at [Digital Scientists](http://www.digitalscientists.com/).
 
-This config only provides React and JSX rules, not vanilla JS rules, and therefore should be coupled with `eslint-config-digital-scientists-base`, which you can find [**here**](https://github.com/digitalscientists/eslint-config-digital-scientists-base).
+This config only provides React and JSX rules, not vanilla JS rules, and therefore should be installed with `eslint-config-digital-scientists-base`, which you can find [**here**](https://github.com/digitalscientists/eslint-config-digital-scientists-base).
+
+**For convenience, you can get these configs (along with others) packaged together by simpling installing `eslint-config-digital-scientists`. You can extend all Digital Scientists configs in your `.eslintrc` like this:**
+
+```json
+{
+  "extends": "digital-scientists",
+  "root": true
+}
+```
+
+Or you can extend individual packages within it like so:
+
+```json
+{
+  "extends": ["digital-scientists/base", "digital-scientists/react"],
+  "root": true
+}
+```
 
 ## Installation
 
