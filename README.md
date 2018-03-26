@@ -84,7 +84,7 @@ module.exports = {
 };
 ```
 
-Install a Prettier formatting plugin for your editor and set to format on save`
+Install a Prettier formatting plugin for your editor and set to format on save
 
 * For Visual Studio Code: [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 * For Atom: [prettier-atom](https://github.com/prettier/prettier-atom)
