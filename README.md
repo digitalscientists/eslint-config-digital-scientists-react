@@ -1,13 +1,18 @@
-# eslint-config-digital-scientists
+# eslint-config-digital-scientists-react
 
-An ESLint [Shareable Config](http://eslint.org/docs/developer-guide/shareable-configs) for JS and React (and React Native) projects at [Digital Scientists](http://www.digitalscientists.com/).
+An ESLint [Shareable Config](http://eslint.org/docs/developer-guide/shareable-configs) for React.js projects at [Digital Scientists](http://www.digitalscientists.com/).
+
+This config only provides React and JSX rules, not vanilla JS rules, and therefore should be coupled with `eslint-config-digital-scientists-base`, which you can find [**here**](https://github.com/digitalscientists/eslint-config-digital-scientists-base).
 
 ## Installation
 
 It's recommended to always install linting/formatting engines and configs **locally**, since supported rules and config specifics can change over time and may cause inconsistencies across projects if installed globally and updated over time.
 
 ```sh
-npm install --save-dev --save-exact eslint eslint-config-digital-scientists
+npm install --save-dev --save-exact \
+  eslint \
+  eslint-config-digital-scientists \
+  eslint-config-digital-scientists-react
 ```
 
 ## Usage
@@ -16,7 +21,7 @@ In your local `.eslintrc.{js,json}` file:
 
 ```json
 {
-  "extends": "digital-scientists",
+  "extends": ["digital-scientists-base", "digital-scientists-react"],
   "root": true
 }
 ```
@@ -26,13 +31,21 @@ _Note:_
 * the `eslint-config-` portion of the module name is assumed by ESLint.
 * the `root` attribute prevents ESLint from merging local rules with any global configs you may have installed.
 
-### Optional React Native rules
+### Working on React Native?
 
-To add a few `react-native`-specific rules, just add this additional extension to your `.eslintrc` `extends` property list:
+To add `react-native`-specific rules, install `eslint-config-digital-scientists-react-native` and it to your `.eslintrc` `extends` property list:
+
+```sh
+npm install --save-dev --save-exact eslint-config-digital-scientists-react-native
+```
 
 ```json
 {
-  "extends": ["digital-scientists", "digital-scientists/react-native"],
+  "extends": [
+    "digital-scientists-base",
+    "digital-scientists-react",
+    "digital-scientists-react-react-native"
+  ],
 
   "root": true
 }
@@ -50,7 +63,7 @@ Some recommended ESLint plugins are:
 
 ## Integrating ESLint With Prettier
 
-In order to user `prettier` with `eslint` and `eslint-config-digital-scientists`, you will need to do the following:
+In order to user `prettier` with `eslint`, you will need to do the following:
 
 Install `prettier` and `eslint-config-prettier`
 
@@ -58,16 +71,22 @@ Install `prettier` and `eslint-config-prettier`
 npm install --save-dev --save-exact prettier eslint-config-prettier
 ```
 
-Modify `.eslintrc.{js,json}` to extend `eslint-config-pretter` **after** `eslint-config-digital-scientists` to overwrite any rules that conflict with prettier
+Modify `.eslintrc.{js,json}` to extend `eslint-config-prettier` **after** `eslint-config-digital-scientists-react` to overwrite any rules that conflict with prettier
 
 ```json
 {
-  "extends": ["digital-scientists", "prettier", "prettier/react"],
+  "extends": [
+    "eslint-config-digital-scientists-base",
+    "digital-scientists-react",
+    "prettier",
+    "prettier/react"
+  ],
+
   "root": true
 }
 ```
 
-Add a `prettier` config (e.g. `.prettierrc.js`) with these recommended settings:
+Add a `prettier` config (e.g. `.prettierrc.js`) to the project root directory with these recommended settings:
 
 ```js
 module.exports = {
@@ -101,7 +120,7 @@ npm install babel-eslint --save-dev
 ```json
 {
   "parser": "babel-eslint",
-  "extends": "digital-scientists",
+  "extends": ["digital-scientists-base", "digital-scientists-react"],
   "root": true
 }
 ```
@@ -112,14 +131,18 @@ Any [rules](http://eslint.org/docs/rules/) added to your global or local `.eslin
 
 ```json
 {
-  "extends": "digital-scientists",
+  "extends": ["digital-scientists-base", "digital-scientists-react"],
   "rules": {
-    "semi": [1, "always"]
+    "semi": [1, "always"],
+    "react/prefer-stateless-funciton": 1,
+    "react/jsx-no-bind": 0
   }
 }
 ```
 
-This turns on enforcing the use of semicolons, a rule which is silenced by default in the current version of the `eslint-config-digital-scientists` package.
+This turns on enforcing the use of semicolons and stateless functional components, and silences warning about binding a function on props.
+
+`eslint-config-digital-scientists-react` adds support for rules prefaced by `react/`. You can find a list of supported rules [**here**](https://www.npmjs.com/package/eslint-plugin-react).
 
 ## Background
 
