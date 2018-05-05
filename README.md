@@ -112,12 +112,12 @@ module.exports = {
   bracketSpacing: false,
   jsxBracketSameLine: false,
   printWidth: 80,
-  singleQuote: true,
-  semi: false,
+  singleQuote: false,
+  semi: true,
   tabWidth: 2,
   trailingComma: "es5",
   useTabs: false,
-  proseWrap: "always"
+  proseWrap: "always",
 };
 ```
 

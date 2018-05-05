@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "publish:npm": "git add . && git commit -m 'update' && npm version minor&& git push --tags && npm publish",
     "test": "mocha"
   },
   "repository": {
