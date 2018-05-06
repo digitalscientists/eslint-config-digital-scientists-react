@@ -45,7 +45,7 @@ const eslintConfig = {
     // Prevent extraneous defaultProps on components
     "react/default-props-match-prop-types": 1,
     // Rule enforces consistent usage of destructuring assignment in component
-    "react/destructuring-assignment": [1, "always"],
+    "react/destructuring-assignment": [0, "always"],
     // Prevent missing displayName in a React component definition
     "react/display-name": [0, { ignoreTranspilerName: true }],
     // Forbid certain props on Components
