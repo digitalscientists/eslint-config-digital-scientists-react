@@ -35,6 +35,8 @@
     "eslint": "^4.6.0"
   },
   "dependencies": {
+    "cosmiconfig": "^5.0.1",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-react": "^7.0.1"
   }
 }
