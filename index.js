@@ -4,20 +4,34 @@
 // Note that you need to manually install `eslint-plugin-react` as a peer
 // dependency (see https://goo.gl/I4AYlb for more details).
 
+const compose = (...fns) => arg => fns.reduce((arg, fn) => fn(arg), arg);
+const tryCatch = (tryer, catcher) => (...args) => {
+  try {
+    return tryer(...args);
+  } catch (err) {
+    return catcher(err);
+  }
+};
+
 const cosmiconfig = require("cosmiconfig");
-const prettierrc = cosmiconfig("prettier").searchSync();
+const prettier = cosmiconfig("prettier").searchSync();
+const saga = tryCatch(require.resolve.bind(require), console.log.bind(console))(
+  "redux-saga"
+);
 
 const withPrettier = eslintConfig => {
   eslintConfig.extends.push("prettier/react");
   return eslintConfig;
 };
 
+const withSaga = eslintConfig => {
+  eslintConfig.extends.push("plugin:redux-saga/recommended");
+  eslintConfig.plugins.push("redux-saga");
+  return eslintConfig;
+};
+
 const eslintConfig = {
-  extends: [
-    "plugin:react/recommended",
-    "plugin:react-redux/recommended",
-    "plugin:redux-saga/recommended",
-  ],
+  extends: ["plugin:react/recommended", "plugin:react-redux/recommended"],
 
   env: {
     es6: true,
@@ -39,7 +53,7 @@ const eslintConfig = {
     },
   },
 
-  plugins: ["react", "react-redux", "redux-saga"],
+  plugins: ["react", "react-redux"],
 
   rules: {
     // Enforces consistent naming for boolean props
@@ -279,4 +293,7 @@ const eslintConfig = {
   },
 };
 
-module.exports = prettierrc ? withPrettier(eslintConfig) : eslintConfig;
+module.exports = compose(
+  prettier ? withPrettier : x => x,
+  saga ? withSaga : x => x
+)(eslintConfig);
