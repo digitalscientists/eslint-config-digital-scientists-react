@@ -13,7 +13,11 @@ const withPrettier = eslintConfig => {
 };
 
 const eslintConfig = {
-  extends: ["plugin:react/recommended"],
+  extends: [
+    "plugin:react/recommended",
+    "plugin:react-redux/recommended",
+    "plugin:redux-saga/recommended",
+  ],
 
   env: {
     es6: true,
@@ -35,7 +39,7 @@ const eslintConfig = {
     },
   },
 
-  plugins: ["react"],
+  plugins: ["react", "react-redux", "redux-saga"],
 
   rules: {
     // Enforces consistent naming for boolean props
