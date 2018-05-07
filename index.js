@@ -9,15 +9,13 @@ const tryCatch = (tryer, catcher) => (...args) => {
   try {
     return tryer(...args);
   } catch (err) {
-    return catcher(err);
+    return catcher(err.message);
   }
 };
 
 const cosmiconfig = require("cosmiconfig");
 const prettier = cosmiconfig("prettier").searchSync();
-const saga = tryCatch(require.resolve.bind(require), console.log.bind(console))(
-  "redux-saga"
-);
+const saga = tryCatch(require.resolve.bind(require), () => null)("redux-saga");
 
 const withPrettier = eslintConfig => {
   eslintConfig.extends.push("prettier/react");
