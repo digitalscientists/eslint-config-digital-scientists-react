@@ -4,6 +4,8 @@
 // Note that you need to manually install `eslint-plugin-react` as a peer
 // dependency (see https://goo.gl/I4AYlb for more details).
 
+const cosmiconfig = require("cosmiconfig");
+
 const compose = (...fns) => arg => fns.reduce((arg, fn) => fn(arg), arg);
 const tryCatch = (tryer, catcher) => (...args) => {
   try {
@@ -13,7 +15,6 @@ const tryCatch = (tryer, catcher) => (...args) => {
   }
 };
 
-const cosmiconfig = require("cosmiconfig");
 const prettier = cosmiconfig("prettier").searchSync();
 const saga = tryCatch(require.resolve.bind(require), () => null)("redux-saga");
 
@@ -54,7 +55,15 @@ const eslintConfig = {
   plugins: ["react", "react-redux"],
 
   rules: {
+    // ------------- REDUX-SPECIFIC RULES ----------------
+
+    // Enforces that all connected components are defined in a separate file
+    "react-redux/prefer-separate-component-file": 0,
+    // Enforces that all connect arguments have recommended names
+    "react-redux/connect-prefer-named-arguments": 1,
     // Enforces consistent naming for boolean props
+
+    // ------------- REACT-SPECIFIC RULES ----------------
     "react/boolean-prop-naming": 1,
     // Forbid "button" element without an explicit "type" attribute
     "react/button-has-type": 1,
@@ -111,7 +120,7 @@ const eslintConfig = {
     // Prevent using this in stateless functional components
     "react/no-this-in-sfc": 2,
     // Prevent invalid characters from appearing in markup
-    "react/no-unescaped-entities": 2,
+    "react/no-unescaped-entities": 0,
     // Prevent usage of unknown DOM property (fixable)
     "react/no-unknown-property": 2,
     // Prevent definitions of unused prop types
@@ -187,6 +196,8 @@ const eslintConfig = {
     // Prevent void DOM elements (e.g. <img />, <br />) from receiving children
     "react/void-dom-elements-no-children": 2,
 
+    // ------------- JSX-SPECIFIC RULES ----------------
+
     // Enforce boolean attributes notation in JSX (fixable)
     "react/jsx-boolean-value": [1, "always"],
     // Enforce or disallow spaces inside of curly braces in JSX attributes and expressions.
@@ -198,7 +209,7 @@ const eslintConfig = {
     // Enforce or disallow spaces inside of curly braces in JSX attributes and expressions (fixable)
     "react/jsx-curly-spacing": [
       2,
-      { when: "never", children: true, allowMultiline: false },
+      { when: "never", children: true, allowMultiline: true },
     ],
     // Enforce or disallow spaces around equal signs in JSX attributes (fixable)
     "react/jsx-equals-spacing": [2, "never"],
